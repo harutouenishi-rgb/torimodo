@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>トリモド｜あなたが知らずに捨てているお金を、AIが取り戻す</title>
+<meta name="description" content="補助金・助成金・控除を1万件超のDBからAIが自動診断。3分で「あなたが取りこぼしているお金」が分かるLINEサービス。">
+
+<!-- OGP (SNSシェア時の表示) -->
+<meta property="og:title" content="トリモド｜あなたが知らずに捨てているお金を、AIが取り戻す">
+<meta property="og:description" content="日本には1万件超の制度がある。AIが3分で「あなたが本当にもらえる制度」を見つけ出すLINEサービス。診断は完全無料。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://harutouenishi-rgb.github.io/torimodo/">
+<meta property="og:image" content="https://harutouenishi-rgb.github.io/torimodo/ogp.png">
+<meta property="og:site_name" content="トリモド">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="トリモド｜あなたが知らずに捨てているお金を、AIが取り戻す">
+<meta name="twitter:description" content="日本には1万件超の制度がある。AIが3分で「あなたが本当にもらえる制度」を見つけ出す。診断は完全無料。">
+<meta name="twitter:image" content="https://harutouenishi-rgb.github.io/torimodo/ogp.png">
+
+<!-- ファビコン -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230F2419'/%3E%3Ctext x='50' y='62' font-family='serif' font-weight='800' font-size='32' fill='%23C9A961' text-anchor='middle'%3Eト%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4EFE6;
+  --bg-dark:#1A2419;
+  --ink:#1A2419;
+  --green:#2C4A38;
+  --green-deep:#0F2419;
+  --gold:#C9A961;
+  --rust:#B64926;
+  --paper:#FDF9F0;
+  --line:#06C755;
+  --mute:#7A7268;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  font-feature-settings:"palt";
+}
+.serif{font-family:"Shippori Mincho","Fraunces",serif;}
+.en{font-family:"Fraunces",serif;font-style:italic;}
+
+/* ノイズテクスチャ */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:0.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2;}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(244,239,230,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,36,25,0.08);}
+.logo{font-family:"Shippori Mincho",serif;font-weight:800;font-size:22px;letter-spacing:0.05em;}
+.logo span{color:var(--gold);}
+.nav-cta{background:var(--line);color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:700;font-size:14px;transition:transform .2s;}
+.nav-cta:hover{transform:translateY(-2px);}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;padding:140px 0 80px;position:relative;display:flex;align-items:center;}
+.hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;}
+.kicker{display:inline-block;padding:6px 14px;border:1px solid var(--green);border-radius:999px;font-size:12px;letter-spacing:0.15em;color:var(--green);margin-bottom:32px;animation:fadeUp .8s ease;}
+.hero h1{font-family:"Shippori Mincho",serif;font-weight:800;font-size:clamp(38px,5.5vw,72px);line-height:1.2;letter-spacing:-0.02em;margin-bottom:32px;animation:fadeUp 1s ease;}
+.hero h1 .accent{color:var(--rust);position:relative;display:inline-block;}
+.hero h1 .accent::after{content:"";position:absolute;bottom:8px;left:0;right:0;height:14px;background:var(--gold);opacity:0.35;z-index:-1;}
+.hero h1 .strike{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--rust);color:var(--mute);}
+.hero p.lead{font-size:17px;line-height:1.9;color:#3a3a3a;margin-bottom:40px;animation:fadeUp 1.2s ease;}
+.hero-cta{display:flex;gap:16px;align-items:center;flex-wrap:wrap;animation:fadeUp 1.4s ease;}
+.btn-line{background:var(--line);color:#fff;padding:18px 36px;border-radius:999px;text-decoration:none;font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(6,199,85,0.3);transition:all .3s;}
+.btn-line:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(6,199,85,0.4);}
+.btn-line::before{content:"";width:24px;height:24px;background:#fff;border-radius:6px;display:inline-block;-webkit-mask:url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M19 4H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V7a3 3 0 00-3-3zM7 14H5v-2h2v2zm0-4H5V8h2v2zm6 4h-4v-2h4v2zm0-4h-4V8h4v2zm6 4h-4v-2h4v2zm0-4h-4V8h4v2z'/%3E%3C/svg%3E") no-repeat center;mask:url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M19 4H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V7a3 3 0 00-3-3zM7 14H5v-2h2v2zm0-4H5V8h2v2zm6 4h-4v-2h4v2zm0-4h-4V8h4v2zm6 4h-4v-2h4v2zm0-4h-4V8h4v2z'/%3E%3C/svg%3E") no-repeat center;}
+.cta-meta{font-size:13px;color:var(--mute);}
+
+/* Hero右側のお金カード */
+.money-card{background:var(--paper);padding:40px 36px;border-radius:24px;box-shadow:0 30px 60px -20px rgba(15,36,25,0.25),0 0 0 1px rgba(15,36,25,0.06);position:relative;animation:fadeIn 1.5s ease;transform:rotate(-1.5deg);}
+.money-card::before{content:"";position:absolute;top:-12px;right:24px;background:var(--rust);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:4px;letter-spacing:0.1em;content:"あなたの試算";}
+.money-card .label{font-size:12px;letter-spacing:0.2em;color:var(--mute);margin-bottom:8px;}
+.money-card .name{font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px;margin-bottom:24px;color:var(--green-deep);}
+.money-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px dashed rgba(26,36,25,0.15);}
+.money-row:last-child{border-bottom:none;}
+.money-row .item{font-size:13px;color:#3a3a3a;}
+.money-row .yen{font-family:"Fraunces",serif;font-weight:700;font-size:18px;color:var(--green);}
+.money-total{margin-top:24px;padding-top:24px;border-top:2px solid var(--green-deep);display:flex;justify-content:space-between;align-items:baseline;}
+.money-total .t-label{font-family:"Shippori Mincho",serif;font-weight:700;font-size:15px;}
+.money-total .t-yen{font-family:"Fraunces",serif;font-weight:900;font-size:42px;color:var(--rust);letter-spacing:-0.02em;}
+.money-stamp{position:absolute;top:20px;left:-20px;background:var(--green-deep);color:var(--gold);padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:0.2em;transform:rotate(-8deg);border-radius:2px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* ===== セクション共通 ===== */
+section{padding:120px 0;position:relative;}
+.section-num{font-family:"Fraunces",serif;font-style:italic;font-size:14px;color:var(--gold);letter-spacing:0.3em;margin-bottom:16px;}
+.section-title{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(28px,4vw,46px);line-height:1.4;letter-spacing:-0.02em;margin-bottom:60px;}
+
+/* ===== 問題提起 ===== */
+.problem{background:var(--bg-dark);color:var(--paper);}
+.problem .section-num{color:var(--gold);}
+.problem .section-title{color:var(--paper);}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.problem-card{padding:36px 28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;}
+.problem-card .icon{font-family:"Fraunces",serif;font-style:italic;font-size:48px;color:var(--gold);margin-bottom:16px;}
+.problem-card h3{font-family:"Shippori Mincho",serif;font-weight:700;font-size:20px;margin-bottom:12px;color:var(--paper);}
+.problem-card p{font-size:14px;line-height:1.8;color:rgba(253,249,240,0.7);}
+.huge-number{text-align:center;margin-top:80px;padding:60px 20px;border-top:1px solid rgba(255,255,255,0.15);border-bottom:1px solid rgba(255,255,255,0.15);}
+.huge-number .pre{font-size:14px;letter-spacing:0.2em;color:var(--gold);margin-bottom:20px;}
+.huge-number .num{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(60px,12vw,160px);line-height:0.9;color:var(--paper);letter-spacing:-0.04em;}
+.huge-number .num span{color:var(--rust);}
+.huge-number .post{font-size:15px;color:rgba(253,249,240,0.7);margin-top:20px;}
+
+/* ===== ソリューション ===== */
+.solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.solution-text h2{font-family:"Shippori Mincho",serif;font-weight:800;font-size:clamp(32px,4.5vw,56px);line-height:1.3;margin-bottom:32px;}
+.solution-text h2 em{font-style:normal;color:var(--rust);}
+.solution-text p{font-size:16px;line-height:2;color:#3a3a3a;margin-bottom:20px;}
+.steps-visual{background:var(--paper);border-radius:24px;padding:48px 40px;box-shadow:0 20px 50px -20px rgba(15,36,25,0.2);}
+.step-item{display:flex;gap:24px;padding:24px 0;border-bottom:1px solid rgba(26,36,25,0.08);}
+.step-item:last-child{border-bottom:none;}
+.step-num{font-family:"Fraunces",serif;font-style:italic;font-weight:700;font-size:36px;color:var(--gold);min-width:60px;line-height:1;}
+.step-content h4{font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px;margin-bottom:8px;color:var(--green-deep);}
+.step-content p{font-size:14px;color:#3a3a3a;line-height:1.7;}
+
+/* ===== 制度カテゴリ ===== */
+.coverage{background:var(--green-deep);color:var(--paper);}
+.coverage .section-title{color:var(--paper);}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.cat-card{padding:28px 24px;background:rgba(255,255,255,0.05);border:1px solid rgba(201,169,97,0.2);border-radius:12px;transition:all .3s;}
+.cat-card:hover{background:rgba(201,169,97,0.1);transform:translateY(-4px);}
+.cat-card .cat-name{font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px;color:var(--gold);margin-bottom:8px;}
+.cat-card .cat-count{font-family:"Fraunces",serif;font-size:14px;color:rgba(253,249,240,0.6);margin-bottom:12px;}
+.cat-card .cat-ex{font-size:12px;color:rgba(253,249,240,0.8);line-height:1.6;}
+
+/* ===== ペルソナ ===== */
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.persona-card{background:var(--paper);border-radius:20px;padding:36px 28px;position:relative;box-shadow:0 12px 30px -12px rgba(15,36,25,0.15);}
+.persona-card .ptag{display:inline-block;background:var(--green-deep);color:var(--gold);font-size:11px;padding:4px 10px;border-radius:4px;letter-spacing:0.1em;margin-bottom:16px;}
+.persona-card h4{font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px;margin-bottom:8px;}
+.persona-card .age{font-family:"Fraunces",serif;font-style:italic;color:var(--mute);font-size:14px;margin-bottom:20px;}
+.persona-card .quote{font-size:14px;line-height:1.8;color:#3a3a3a;padding-left:16px;border-left:3px solid var(--gold);margin-bottom:20px;font-style:italic;}
+.persona-card .saved{padding-top:20px;border-top:1px dashed rgba(26,36,25,0.15);}
+.persona-card .saved-label{font-size:11px;color:var(--mute);letter-spacing:0.15em;margin-bottom:4px;}
+.persona-card .saved-yen{font-family:"Fraunces",serif;font-weight:900;font-size:32px;color:var(--rust);}
+
+/* ===== なぜ無料? ===== */
+.why{background:var(--paper);}
+.why-box{max-width:760px;margin:0 auto;text-align:center;}
+.why-box h2{font-family:"Shippori Mincho",serif;font-weight:800;font-size:clamp(28px,4vw,42px);line-height:1.5;margin-bottom:32px;}
+.why-box h2 em{font-style:normal;color:var(--rust);background:linear-gradient(transparent 60%,rgba(201,169,97,0.3) 60%);}
+.why-box p{font-size:16px;line-height:2;color:#3a3a3a;text-align:left;}
+.fee-row{display:flex;justify-content:space-between;align-items:baseline;padding:24px 32px;background:var(--bg);border-radius:12px;margin-top:40px;}
+.fee-row .fl{font-family:"Shippori Mincho",serif;font-weight:700;font-size:16px;}
+.fee-row .fr{font-family:"Fraunces",serif;font-weight:900;font-size:32px;color:var(--green);}
+
+/* ===== FAQ ===== */
+.faq-item{border-bottom:1px solid rgba(26,36,25,0.15);padding:28px 0;}
+.faq-q{font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.faq-q::before{content:"Q.";font-family:"Fraunces",serif;font-style:italic;color:var(--gold);margin-right:16px;font-size:24px;}
+.faq-q::after{content:"+";font-size:28px;color:var(--gold);font-weight:300;transition:transform .3s;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;padding-left:48px;color:#3a3a3a;line-height:1.9;font-size:15px;}
+.faq-item.open .faq-a{max-height:300px;padding-top:16px;}
+
+/* ===== 最終CTA ===== */
+.final{background:linear-gradient(135deg,var(--green-deep) 0%,#1a3a28 100%);color:var(--paper);text-align:center;}
+.final h2{font-family:"Shippori Mincho",serif;font-weight:800;font-size:clamp(32px,5vw,60px);line-height:1.4;margin-bottom:24px;color:var(--paper);}
+.final h2 em{font-style:normal;color:var(--gold);}
+.final p{font-size:17px;color:rgba(253,249,240,0.8);margin-bottom:48px;}
+.final .btn-line{font-size:18px;padding:22px 48px;}
+.final .meta{margin-top:32px;display:flex;gap:32px;justify-content:center;font-size:13px;color:rgba(253,249,240,0.6);flex-wrap:wrap;}
+.final .meta span::before{content:"✓ ";color:var(--gold);}
+
+/* ===== Footer ===== */
+footer{background:var(--bg-dark);color:rgba(253,249,240,0.6);padding:60px 0 40px;font-size:13px;}
+.foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:40px;}
+.foot-grid a{color:rgba(253,249,240,0.6);text-decoration:none;margin-right:24px;}
+.foot-grid a:hover{color:var(--gold);}
+.foot-bottom{padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);text-align:center;font-family:"Fraunces",serif;font-style:italic;}
+
+/* ===== レスポンシブ ===== */
+@media(max-width:840px){
+  .hero-grid,.solution-grid{grid-template-columns:1fr;gap:48px;}
+  .problem-grid,.persona-grid{grid-template-columns:1fr;}
+  nav{padding:14px 20px;}
+  section{padding:80px 0;}
+  .money-card{transform:none;}
+  .hero{padding:110px 0 60px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">トリ<span>モド</span></div>
+  <a href="https://lin.ee/Y76Guyt" target="_blank" rel="noopener" class="nav-cta">無料診断する</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="kicker">公的支援制度 × AI診断</div>
+      <h1>あなたが<br><span class="strike">気づかない</span>うちに<br>捨てているお金は、<br><span class="accent">年間38万円</span>。</h1>
+      <p class="lead">日本には1万件超の補助金・助成金・控除制度がある。<br>でも、ほとんどの人がその存在すら知らない。<br><strong>トリモドは、AIが「あなたが本当にもらえる制度」だけを<br>3分で見つけ出すLINEサービスです。</strong></p>
+      <div class="hero-cta">
+        <a href="https://lin.ee/Y76Guyt" target="_blank" rel="noopener" class="btn-line">LINEで無料診断を始める</a>
+        <span class="cta-meta">登録不要・3分で完了</span>
+      </div>
+    </div>
+    <div class="money-card">
+      <div class="money-stamp">取りこぼし</div>
+      <div class="label">CASE 01</div>
+      <div class="name">フリーランス・32歳・年収400万</div>
+      <div class="money-row"><span class="item">小規模企業共済</span><span class="yen">¥84,000</span></div>
+      <div class="money-row"><span class="item">国民健康保険 減免</span><span class="yen">¥62,000</span></div>
+      <div class="money-row"><span class="item">家事按分</span><span class="yen">¥120,000</span></div>
+      <div class="money-row"><span class="item">医療費控除</span><span class="yen">¥38,000</span></div>
+      <div class="money-row"><span class="item">ふるさと納税</span><span class="yen">¥78,000</span></div>
+      <div class="money-total">
+        <span class="t-label">取りこぼし合計</span>
+        <span class="t-yen">¥382,000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 問題提起 -->
+<section class="problem">
+  <div class="container">
+    <div class="section-num">— THE PROBLEM</div>
+    <h2 class="section-title">なぜ、こんなに<br>取りこぼしているのか。</h2>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="icon">i.</div>
+        <h3>知らない</h3>
+        <p>国・都道府県・市区町村の3層構造で1万件超の制度が存在する。一般人が網羅するのは物理的に不可能。</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">ii.</div>
+        <h3>難しい</h3>
+        <p>申請書類は専門用語だらけ。記入例を読むだけで30分。「自分が対象か」の判定すら一苦労。</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">iii.</div>
+        <h3>面倒</h3>
+        <p>役所の窓口は平日昼間。必要書類を集めるだけで半日。結果、ほとんどの人が途中で諦める。</p>
+      </div>
+    </div>
+    <div class="huge-number">
+      <div class="pre">日本全体で、毎年</div>
+      <div class="num">数<span>兆</span>円</div>
+      <div class="post">の公的支援が、申請されないまま消えている。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ソリューション -->
+<section>
+  <div class="container">
+    <div class="solution-grid">
+      <div class="solution-text">
+        <div class="section-num">— THE SOLUTION</div>
+        <h2>探さない。<br>探されない。<br><em>AIが、見つけに行く。</em></h2>
+        <p>従来の補助金サイトは「あなたが探しに来る」前提で作られている。だから結局、知っている人しか得をしない。</p>
+        <p>トリモドは違う。LINEで10問に答えるだけで、AIがあなたのプロフィールに合致する制度を1万件のデータベースから自動抽出。「いくらもらえるか」「どう申請するか」まで、ぜんぶ教えます。</p>
+      </div>
+      <div class="steps-visual">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div class="step-content"><h4>LINEで友だち追加</h4><p>アプリのインストール不要。30秒で始められます。</p></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div class="step-content"><h4>10問の質問に答える</h4><p>働き方・家族構成・住まいなど。タップだけ、3分で完了。</p></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="step-content"><h4>受給可能な制度リストが届く</h4><p>「いくら」「どう申請」「いつまでに」を全部表示。</p></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <div class="step-content"><h4>申請サポート(任意)</h4><p>面倒な書類はAIが下書き。あなたは確認するだけ。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- カバレッジ -->
+<section class="coverage">
+  <div class="container">
+    <div class="section-num">— COVERAGE</div>
+    <h2 class="section-title">トリモドが扱う制度</h2>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="cat-name">節税・控除</div><div class="cat-count">10種以上</div><div class="cat-ex">小規模企業共済 / iDeCo / 青色申告控除 / 家事按分 / 医療費控除</div></div>
+      <div class="cat-card"><div class="cat-name">補助金</div><div class="cat-count">10種以上</div><div class="cat-ex">IT導入補助金 / 持続化補助金 / 事業再構築補助金 / 創業補助金</div></div>
+      <div class="cat-card"><div class="cat-name">給付金</div><div class="cat-count">10種以上</div><div class="cat-ex">児童手当 / 出産育児一時金 / 育児休業給付金 / 失業給付</div></div>
+      <div class="cat-card"><div class="cat-name">住宅・暮らし</div><div class="cat-count">5種以上</div><div class="cat-ex">住宅ローン控除 / こどもエコすまい / 自治体リフォーム助成</div></div>
+      <div class="cat-card"><div class="cat-name">医療・介護</div><div class="cat-count">5種以上</div><div class="cat-ex">高額療養費 / 高額介護サービス費 / 国保減免</div></div>
+      <div class="cat-card"><div class="cat-name">自治体独自</div><div class="cat-count">47都道府県</div><div class="cat-ex">東京都018サポート / 各市区町村の独自給付など</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ペルソナ -->
+<section>
+  <div class="container">
+    <div class="section-num">— FOR YOU</div>
+    <h2 class="section-title">こんな人が、<br>たくさん取り戻しています。</h2>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <span class="ptag">FREELANCER</span>
+        <h4>Webデザイナー Sさん</h4>
+        <div class="age">32歳・個人事業主・年収400万</div>
+        <p class="quote">「小規模企業共済も国保減免も知らなかった。診断後すぐに3つ申請して、年間で38万円戻ってきました。」</p>
+        <div class="saved"><div class="saved-label">ANNUAL RECOVERY</div><div class="saved-yen">¥382,000</div></div>
+      </div>
+      <div class="persona-card">
+        <span class="ptag">PARENT</span>
+        <h4>子育て世帯 Tさん夫妻</h4>
+        <div class="age">35歳・夫婦+子2人</div>
+        <p class="quote">「自治体の独自給付や私立高校の補助、知らないものばかり。トリモドのおかげで毎年使えるリストができました。」</p>
+        <div class="saved"><div class="saved-label">ANNUAL RECOVERY</div><div class="saved-yen">¥248,000</div></div>
+      </div>
+      <div class="persona-card">
+        <span class="ptag">SMALL BIZ</span>
+        <h4>町工場経営 Kさん</h4>
+        <div class="age">45歳・従業員3名</div>
+        <p class="quote">「IT導入補助金もキャリアアップ助成金も難しそうで諦めてた。AIが書類の下書きまで作ってくれて衝撃。」</p>
+        <div class="saved"><div class="saved-label">RECEIVED</div><div class="saved-yen">¥1.2M</div></div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--mute);margin-top:24px;">※ 上記は想定ケース。実際の受給額は個人の状況により異なります。</p>
+  </div>
+</section>
+
+<!-- 料金 -->
+<section class="why">
+  <div class="container">
+    <div class="why-box">
+      <div class="section-num">— PRICING</div>
+      <h2>診断は完全無料。<br>申請サポートは<em>「もらえてから」</em>払う。</h2>
+      <p>無料で診断、無料で制度リストを受け取れます。「自分で申請したい」人はそのまま自分で。「面倒だから任せたい」人は、AI申請サポートをご利用ください。<strong>料金は受給額の12%。受給できなければ0円。</strong>あなたのリスクは、ゼロです。</p>
+      <div class="fee-row">
+        <span class="fl">診断 + 制度リスト</span>
+        <span class="fr">¥0</span>
+      </div>
+      <div class="fee-row">
+        <span class="fl">AI申請サポート(任意)</span>
+        <span class="fr">受給額の<span style="font-size:18px;">12%</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container" style="max-width:820px;">
+    <div class="section-num">— FAQ</div>
+    <h2 class="section-title">よくある質問</h2>
+    <div class="faq-item"><div class="faq-q">本当に無料で使えますか?</div><div class="faq-a">はい。診断と制度リストの提示は完全無料です。AI申請サポートを利用し、実際に受給できた場合のみ12%をお支払いいただく成功報酬型です。</div></div>
+    <div class="faq-item"><div class="faq-q">個人情報は安全ですか?</div><div class="faq-a">診断に必要な最小限の情報(年代・家族構成など)のみ取得し、第三者には一切提供しません。氏名や住所などは申請サポート時に必要な範囲でのみ取得します。</div></div>
+    <div class="faq-item"><div class="faq-q">AIの判定は正確ですか?</div><div class="faq-a">公式情報源をもとにマッチング判定を行いますが、最終的な受給可否は各窓口の審査によります。トリモドは「申請の支援」を提供するサービスであり、受給を保証するものではありません。</div></div>
+    <div class="faq-item"><div class="faq-q">フリーランスでなくても使えますか?</div><div class="faq-a">はい。会社員・子育て世帯・高齢者・学生など、すべての方を対象に診断可能です。あなたの状況に合った制度を提案します。</div></div>
+    <div class="faq-item"><div class="faq-q">申請の代行までしてくれますか?</div><div class="faq-a">代行ではなく「支援」です。申請書の下書きをAIが生成し、必要書類リストを提示します。最終的な提出はご本人が行います(法令遵守のため)。</div></div>
+  </div>
+</section>
+
+<!-- 最終CTA -->
+<section class="final" id="cta">
+  <div class="container">
+    <h2>まず、<em>あなたの取りこぼし額</em>を<br>知ることから。</h2>
+    <p>3分の診断で、あなたが今年見落としているお金が、いくらあるか分かります。</p>
+    <a href="https://lin.ee/Y76Guyt" target="_blank" rel="noopener" class="btn-line" id="line-cta">LINEで無料診断を始める</a>
+    <div class="meta">
+      <span>登録不要</span>
+      <span>3分で完了</span>
+      <span>診断は完全無料</span>
+      <span>個人情報は最小限</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="logo" style="color:var(--paper);">トリ<span style="color:var(--gold);">モド</span></div>
+      <div>
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法表記</a>
+        <a href="#">運営者情報</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Torimodo — Recover what's yours.</div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>item.classList.toggle('open'));
+});
+</script>
+</body>
+</html>
