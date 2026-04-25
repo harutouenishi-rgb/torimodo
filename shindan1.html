@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>トリモド｜3分診断</title>
+<meta name="description" content="あなたが取りこぼしている補助金・助成金・控除を3分で診断。完全無料。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230F2419'/%3E%3Ctext x='50' y='62' font-family='serif' font-weight='800' font-size='32' fill='%23C9A961' text-anchor='middle'%3Eト%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4EFE6;--ink:#1A2419;--green:#2C4A38;--deep:#0F2419;--gold:#C9A961;--rust:#B64926;--paper:#FDF9F0;--line:#06C755;--mute:#7A7268;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:"Zen Kaku Gothic New",sans-serif;background:var(--deep);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;display:flex;justify-content:center;min-height:100vh;min-height:100dvh;}
+.frame{width:100%;max-width:520px;min-height:100vh;min-height:100dvh;background:var(--bg);position:relative;box-shadow:0 0 80px rgba(0,0,0,.3);}
+.frame::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+@media(min-width:768px){body{padding:40px 0;align-items:flex-start;}.frame{min-height:auto;border-radius:28px;overflow:hidden;}}
+.prog{position:sticky;top:0;z-index:100;background:rgba(244,239,230,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,36,25,.08);padding:14px 24px 12px;display:none;}.prog.on{display:block;}
+.pt{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}.pt .s{font-family:"Fraunces",serif;font-weight:700;font-size:15px;color:var(--deep);}.pt .l{font-size:11px;color:var(--mute);letter-spacing:.15em;}
+.pb{height:3px;background:rgba(26,36,25,.08);border-radius:99px;overflow:hidden;}.pf{height:100%;background:linear-gradient(90deg,var(--gold),var(--rust));border-radius:99px;transition:width .7s cubic-bezier(.22,1,.36,1);}
+.scr{display:none;flex-direction:column;justify-content:center;padding:60px 28px 48px;min-height:calc(100vh - 52px);min-height:calc(100dvh - 52px);position:relative;z-index:1;opacity:0;transform:translateY(20px);transition:opacity .45s ease,transform .45s ease;}
+.scr.on{display:flex;opacity:1;transform:translateY(0);}
+@media(min-width:768px){.scr{min-height:640px;padding:48px 36px 40px;}}
+.start{text-align:center;align-items:center;}.sb{display:inline-block;padding:5px 16px;border:1px solid var(--green);border-radius:99px;font-size:11px;letter-spacing:.18em;color:var(--green);margin-bottom:36px;}
+.slo{font-family:"Shippori Mincho",serif;font-weight:800;font-size:28px;color:var(--deep);}.slo i{color:var(--gold);font-style:normal;}.stg{font-family:"Fraunces",serif;font-style:italic;font-size:12px;color:var(--gold);margin-bottom:44px;}
+.sh1{font-family:"Shippori Mincho",serif;font-weight:800;font-size:clamp(24px,6vw,32px);line-height:1.6;color:var(--deep);margin-bottom:20px;}.sh1 em{font-style:normal;color:var(--rust);position:relative;}.sh1 em::after{content:"";position:absolute;bottom:2px;left:-2px;right:-2px;height:10px;background:var(--gold);opacity:.3;z-index:-1;}
+.sp{font-size:14px;color:var(--mute);margin-bottom:36px;line-height:2;}.sf{display:flex;gap:28px;justify-content:center;margin-bottom:40px;}.sfi{text-align:center;}.sfi b{display:block;font-family:"Fraunces",serif;font-size:22px;color:var(--gold);margin-bottom:2px;}.sfi span{font-size:11px;color:var(--mute);}
+.bg{background:var(--deep);color:var(--paper);border:none;padding:18px 52px;border-radius:999px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .4s;box-shadow:0 8px 32px rgba(15,36,25,.25);}.bg:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(15,36,25,.35);}.bg:active{transform:scale(.97);}
+.sn{font-size:11px;color:var(--mute);margin-top:16px;opacity:.7;}
+.qw{flex:1;display:flex;flex-direction:column;justify-content:center;}.qn{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:var(--gold);letter-spacing:.25em;margin-bottom:14px;}
+.qt{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(20px,5vw,26px);line-height:1.7;color:var(--deep);margin-bottom:6px;}.qs{font-size:12px;color:var(--mute);margin-bottom:20px;}.qh{font-size:12px;color:var(--rust);font-weight:600;margin-bottom:14px;padding:6px 12px;background:rgba(182,73,38,.06);border-radius:8px;display:inline-block;}
+.opts{display:flex;flex-direction:column;gap:8px;}.ob{background:var(--paper);border:2px solid rgba(26,36,25,.08);border-radius:14px;padding:13px 18px;font-size:15px;font-family:inherit;color:var(--deep);cursor:pointer;transition:all .25s;text-align:left;font-weight:500;position:relative;-webkit-tap-highlight-color:transparent;}
+.ob:hover{border-color:var(--gold);background:#FFFEF9;transform:translateX(4px);}.ob:active{transform:scale(.98);}.ob.sel{border-color:var(--deep);background:var(--deep);color:var(--paper);transform:translateX(6px);}.ob.sel::after{content:"\2713";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-weight:700;}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:8px;}.pg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}.pg .ob{padding:10px 6px;font-size:13px;text-align:center;}
+.bcf{background:var(--deep);color:var(--paper);padding:14px 28px;border-radius:999px;border:none;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:20px;transition:all .35s;opacity:.3;pointer-events:none;}.bcf.ok{opacity:1;pointer-events:auto;box-shadow:0 6px 20px rgba(15,36,25,.2);}.bcf.ok:hover{transform:translateY(-2px);}
+.bbk{background:transparent;border:1.5px solid rgba(26,36,25,.15);color:var(--mute);padding:10px 20px;border-radius:999px;font-size:13px;cursor:pointer;font-family:inherit;margin-top:12px;transition:all .3s;}.bbk:hover{border-color:var(--gold);color:var(--deep);}
+.ld{align-items:center;justify-content:center;text-align:center;}.lr{width:56px;height:56px;border:3px solid rgba(26,36,25,.08);border-top-color:var(--gold);border-radius:50%;animation:sp .9s linear infinite;margin-bottom:28px;}@keyframes sp{to{transform:rotate(360deg)}}.ld h2{font-family:"Shippori Mincho",serif;font-size:20px;color:var(--deep);margin-bottom:16px;line-height:1.6;}.ld p{font-size:13px;color:var(--mute);}
+.res{padding:36px 24px 48px!important;min-height:auto!important;justify-content:flex-start!important;}@media(min-width:768px){.res{padding:36px 36px 48px!important;}}
+.rh{text-align:center;margin-bottom:36px;}.rh .rl{font-size:11px;letter-spacing:.25em;color:var(--gold);margin-bottom:14px;}.rh h2{font-family:"Shippori Mincho",serif;font-weight:800;font-size:clamp(18px,4.5vw,24px);color:var(--deep);line-height:1.7;margin-bottom:24px;}
+.ac{background:linear-gradient(135deg,var(--deep),#1a3a28);border-radius:22px;padding:32px 24px 28px;text-align:center;position:relative;overflow:hidden;margin-bottom:12px;}.ac::before{content:"";position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(201,169,97,.12),transparent 70%);}.ac::after{content:"";position:absolute;bottom:-40px;left:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(182,73,38,.1),transparent 70%);}
+.ac .al{font-size:12px;color:var(--gold);letter-spacing:.2em;margin-bottom:10px;position:relative;z-index:1;}.ac .av{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(36px,10vw,52px);color:var(--paper);position:relative;z-index:1;}.ac .av small{font-size:16px;color:rgba(253,249,240,.6);font-weight:400;}.ac .an{font-size:12px;color:rgba(253,249,240,.5);margin-top:10px;position:relative;z-index:1;}
+.rw{font-size:11px;color:var(--mute);text-align:center;margin-bottom:36px;line-height:1.7;}
+.ss{margin-bottom:28px;}.sst{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(26,36,25,.08);}.sst .bd{font-size:18px;}.sst span{font-family:"Shippori Mincho",serif;font-weight:700;font-size:15px;color:var(--deep);}
+.sc{background:var(--paper);border-radius:16px;padding:20px;margin-bottom:10px;border:1px solid rgba(26,36,25,.05);box-shadow:0 2px 16px rgba(15,36,25,.04);transition:transform .3s,box-shadow .3s;}.sc:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(15,36,25,.08);}
+.sc .cn{font-family:"Shippori Mincho",serif;font-weight:700;font-size:16px;color:var(--deep);margin-bottom:10px;}.sc .cm{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}.sc .ct{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;}.sc .ct.mn{background:rgba(182,73,38,.08);color:var(--rust);}.sc .ct.df{background:rgba(201,169,97,.12);color:#8B7332;}
+.sc .cd{font-size:13px;line-height:1.85;color:#3a3a3a;margin-bottom:14px;}.sc .ch{font-size:12px;line-height:1.7;color:var(--mute);padding:12px 14px;background:var(--bg);border-radius:10px;margin-bottom:12px;}.sc .ch b{color:var(--deep);font-size:11px;display:block;margin-bottom:4px;letter-spacing:.12em;font-weight:700;}
+.sc .cl{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--green);text-decoration:none;font-weight:600;padding:6px 14px;background:rgba(44,74,56,.06);border-radius:99px;transition:all .3s;}.sc .cl:hover{background:rgba(44,74,56,.12);color:var(--deep);}
+.cw{margin-top:40px;display:flex;flex-direction:column;gap:10px;}.bl{background:var(--line);color:#fff;padding:16px 24px;border-radius:999px;border:none;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;text-align:center;display:block;transition:all .35s;box-shadow:0 6px 24px rgba(6,199,85,.25);}.bl:hover{transform:translateY(-2px);}
+.bx{background:var(--deep);color:var(--paper);padding:14px 24px;border-radius:999px;border:none;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;text-align:center;display:block;transition:all .3s;}.bx:hover{transform:translateY(-2px);}
+.bs{background:transparent;color:var(--deep);padding:12px 24px;border-radius:999px;border:1.5px solid rgba(26,36,25,.12);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;text-decoration:none;text-align:center;display:block;transition:all .3s;}.bs:hover{border-color:var(--gold);}
+.rf{text-align:center;margin-top:48px;padding-top:20px;border-top:1px solid rgba(26,36,25,.08);}.rf .fl{font-family:"Shippori Mincho",serif;font-weight:800;font-size:16px;color:var(--deep);}.rf .fl i{color:var(--gold);font-style:normal;}.rf p{font-family:"Fraunces",serif;font-style:italic;font-size:11px;color:var(--gold);margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="frame">
+<div class="prog" id="prog"><div class="pt"><span class="s" id="pS">1 / 10</span><span class="l">3分診断</span></div><div class="pb"><div class="pf" id="pF" style="width:10%"></div></div></div>
+<div class="scr on" id="S0"><div class="start"><div class="sb">公的支援 × AI診断</div><div class="slo">トリ<i>モド</i></div><div class="stg">Recover what's yours</div><h1 class="sh1">あなたが<br>知らずに捨てている<br><em>お金</em>、<br>いくらか知っていますか?</h1><p class="sp">日本には1万件超の補助金・助成金・控除制度が。<br>3分の診断で、あなたが受給できる制度と金額が分かります。</p><div class="sf"><div class="sfi"><b>3'</b><span>たった3分</span></div><div class="sfi"><b>¥0</b><span>完全無料</span></div><div class="sfi"><b>10</b><span>10問だけ</span></div></div><button class="bg" onclick="go()">無料診断をはじめる</button><div class="sn">個人情報は一切保存されません</div></div></div>
+<div id="QC"></div>
+<div class="scr ld" id="SL"><div class="lr"></div><h2>あなたの制度を<br>分析しています</h2><p id="lM">1万件超の制度DBから検索中...</p></div>
+<div class="scr res" id="SR"><div id="RC"></div></div>
+</div>
+<script>
+const Q=[
+{id:"work",n:1,t:"現在の働き方は?",s:"最も近いものを1つ選んでください",m:false,o:[{v:"fulltime",l:"会社員(正社員)"},{v:"contract",l:"会社員(契約・派遣)"},{v:"freelance",l:"個人事業主・フリーランス"},{v:"executive",l:"経営者・法人役員"},{v:"part",l:"パート・アルバイト"},{v:"student",l:"学生"},{v:"unemployed",l:"無職・求職中"}]},
+{id:"age",n:2,t:"年齢を教えてください",s:"",m:false,o:[{v:"10s",l:"10代"},{v:"20s",l:"20代"},{v:"30s",l:"30代"},{v:"40s",l:"40代"},{v:"50s",l:"50代"},{v:"60_64",l:"60〜64歳"},{v:"65p",l:"65歳以上"}]},
+{id:"income",n:3,t:"昨年の年収(税込)は\nおよそいくらですか?",s:"",m:false,o:[{v:"0",l:"収入なし"},{v:"u100",l:"〜100万円"},{v:"100_200",l:"100〜200万円"},{v:"200_400",l:"200〜400万円"},{v:"400_600",l:"400〜600万円"},{v:"600_800",l:"600〜800万円"},{v:"800p",l:"800万円以上"}]},
+{id:"region",n:4,t:"お住まいの地域は?",s:"まず地方を選んでください",m:false,type:"region"},
+{id:"family",n:5,t:"ご家族の構成は?",s:"最も近いものを1つ選んでください",m:false,o:[{v:"single",l:"独身(子なし)"},{v:"couple",l:"夫婦のみ(子なし)"},{v:"ch_pre",l:"子どもあり(未就学児)"},{v:"ch_elem",l:"子どもあり(小中学生)"},{v:"ch_high",l:"子どもあり(高校生以上)"},{v:"sp",l:"ひとり親"}]},
+{id:"housing",n:6,t:"住まいの状況は?",s:"",m:false,o:[{v:"rent_w",l:"賃貸(自宅で仕事もする)"},{v:"rent_n",l:"賃貸(仕事しない)"},{v:"own_loan",l:"持ち家(ローンあり)"},{v:"own_paid",l:"持ち家(完済済み)"},{v:"fam",l:"実家暮らし"}]},
+{id:"events",n:7,t:"この1年で起きた\n出来事はありますか?",s:"",m:true,h:"あてはまるものを全て選択",o:[{v:"birth",l:"出産(予定含む)"},{v:"marriage",l:"結婚"},{v:"job_ch",l:"転職"},{v:"job_loss",l:"退職(失業中)"},{v:"startup",l:"起業・開業"},{v:"move",l:"引越し"},{v:"inc_drop",l:"収入が大きく減った"},{v:"ev_none",l:"該当なし"}]},
+{id:"insurance",n:8,t:"加入している\n健康保険は?",s:"",m:false,o:[{v:"company",l:"会社の健康保険"},{v:"national",l:"国民健康保険"},{v:"dependent",l:"家族の扶養"},{v:"unknown",l:"わからない"}]},
+{id:"using",n:9,t:"既に使っている制度は?",s:"",m:true,h:"あてはまるものを全て選択",o:[{v:"furusato",l:"ふるさと納税"},{v:"ideco",l:"iDeCo"},{v:"nisa",l:"NISA"},{v:"shokibo",l:"小規模企業共済"},{v:"aoiro",l:"青色申告"},{v:"iryohi",l:"医療費控除"},{v:"safety",l:"経営セーフティ共済"},{v:"u_none",l:"どれも使っていない"}]},
+{id:"interest",n:10,t:"特に関心があることは?",s:"",m:true,h:"あてはまるものを全て選択",o:[{v:"tax_save",l:"税金を減らしたい"},{v:"benefits",l:"給付金を知りたい"},{v:"biz_sub",l:"補助金を活用したい"},{v:"child_sup",l:"子育て支援を知りたい"},{v:"future",l:"資産を増やしたい"},{v:"house_sup",l:"住宅の控除や補助を知りたい"}]}
+];
+const RG={hk:{n:"北海道・東北",p:["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県"]},kt:{n:"関東",p:["東京都","神奈川県","千葉県","埼玉県","茨城県","栃木県","群馬県"]},cb:{n:"中部",p:["新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県"]},kk:{n:"近畿",p:["三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県"]},cs:{n:"中国・四国",p:["鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県"]},ks:{n:"九州・沖縄",p:["福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"]}};
+const DB=[
+{nm:"小規模企業共済",mn:24000,mx:168000,al:"年24,000〜168,000円の節税",df:"★☆☆",dl:"簡単",ds:"フリーランスの退職金制度。月1,000円から加入でき、掛金全額所得控除。加入率は約10%。",hw:"商工会議所または金融機関で「加入申込書」を提出。確定申告書の写しと本人確認書類。",url:"https://www.smrj.go.jp/kyosai/skyosai/",fn:a=>(a.work==="freelance"||a.work==="executive")&&!a.using.includes("shokibo")},
+{nm:"青色申告特別控除",mn:100000,mx:130000,al:"年約10〜13万円の節税",df:"★★☆",dl:"やや手間",ds:"複式簿記+e-Taxで最大65万円の所得控除。白色のままだと毎年10万以上逃している。",hw:"税務署に「青色申告承認申請書」を提出。会計ソフトで複式簿記に対応可能。",url:"https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2072.htm",fn:a=>(a.work==="freelance"||a.work==="executive")&&!a.using.includes("aoiro")},
+{nm:"家事按分",mn:50000,mx:120000,al:"年5〜12万円の経費化",df:"★★☆",dl:"計算が必要",ds:"自宅兼事務所なら家賃・光熱費の一部を経費化。家賃10万の30%按分で年36万が経費に。",hw:"確定申告時に経費計上。業務使用割合を合理的に算出し根拠資料を保存。",url:"https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2210.htm",fn:a=>(a.work==="freelance"||a.work==="executive")&&a.housing==="rent_w"},
+{nm:"iDeCo",mn:30000,mx:55200,al:"年3〜5.5万円の節税",df:"★★☆",dl:"口座開設が必要",ds:"掛金全額所得控除。フリーランスは月最大6.8万円、会社員は月最大2.3万円。運用益も非課税。",hw:"証券会社でiDeCo口座を開設。加入申出書と本人確認書類を郵送。",url:"https://www.ideco-koushiki.jp/",fn:a=>!a.using.includes("ideco")&&a.age!=="65p"&&a.income!=="0"},
+{nm:"新NISA",mn:0,mx:0,al:"運用益が非課税(年360万枠)",df:"★☆☆",dl:"簡単",ds:"年360万円まで運用益非課税。通常約20%の税金がゼロ。18歳以上なら誰でも。",hw:"証券会社でNISA口座を開設(無料)。マイナンバーと本人確認書類。",url:"https://www.fsa.go.jp/policy/nisa2/",fn:a=>!a.using.includes("nisa")&&a.age!=="10s"},
+{nm:"ふるさと納税",mn:15000,mx:30000,al:"実質2,000円で1.5〜3万円相当",df:"★☆☆",dl:"簡単",ds:"実質2,000円で各地の返礼品がもらえる。住民税の前払いだが返礼品分お得。",hw:"ポータルサイトで寄付。ワンストップ特例か確定申告で控除。",url:"https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/mechanism/deduction.html",fn:a=>!a.using.includes("furusato")&&a.income!=="0"&&a.income!=="u100"},
+{nm:"国保料の減免",mn:30000,mx:200000,al:"年3〜20万円の保険料減額",df:"★★☆",dl:"窓口申請",ds:"収入大幅減で国保料が減額。最大全額免除も。黙っていても減額されない。",hw:"市区町村の国保窓口で「減免申請書」を提出。収入減少の証明書類が必要。",url:"https://www.mhlw.go.jp/stf/newpage_21862.html",fn:a=>a.insurance==="national"&&(a.events.includes("inc_drop")||a.events.includes("job_loss")||a.events.includes("startup"))},
+{nm:"医療費控除",mn:20000,mx:80000,al:"年2〜8万円の還付",df:"★★☆",dl:"領収書整理",ds:"年間医療費10万超で超過分が所得控除。通院交通費も対象。家族分まとめて可。",hw:"確定申告時に「医療費控除の明細書」を添付。領収書は5年保存。",url:"https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1120.htm",fn:a=>!a.using.includes("iryohi")},
+{nm:"経営セーフティ共済",mn:60000,mx:480000,al:"年6〜48万円の経費化",df:"★★☆",dl:"やや手間",ds:"掛金全額損金。月5,000〜最大20万。40ヶ月以上で全額返戻。実質節税+積立。",hw:"金融機関窓口で申込。確定申告書と事業実績1年以上の証明。",url:"https://www.smrj.go.jp/kyosai/tkyosai/",fn:a=>(a.work==="freelance"||a.work==="executive")&&!a.using.includes("safety")&&a.income!=="0"&&a.income!=="u100"},
+{nm:"児童手当",mn:120000,mx:180000,al:"月1〜1.5万円(子1人)",df:"★☆☆",dl:"簡単",ds:"中学生までの子を養育する全世帯に支給。所得制限なし。出生届と同時申請が鉄則。",hw:"市区町村窓口で「認定請求書」を提出。出生後15日以内。",url:"https://www.cfa.go.jp/policies/kokoseido/jidouteate/",fn:a=>["ch_pre","ch_elem","sp"].includes(a.family)},
+{nm:"出産育児一時金",mn:500000,mx:500000,al:"50万円(一児につき)",df:"★☆☆",dl:"簡単",ds:"出産時に健保から50万円支給。直接支払制度で窓口負担軽減。",hw:"出産する病院で「直接支払制度」の合意書に署名。",url:"https://www.kyoukaikenpo.or.jp/g6/cat620/r310/",fn:a=>a.events.includes("birth")},
+{nm:"育児休業給付金",mn:0,mx:0,al:"賃金の67%(180日)→50%",df:"★★☆",dl:"会社経由",ds:"育休中に雇用保険から支給。会社員で雇用保険加入が条件。",hw:"勤務先人事を通じてハローワークに申請。",url:"https://www.hellowork.mhlw.go.jp/insurance/insurance_continue.html",fn:a=>a.events.includes("birth")&&(a.work==="fulltime"||a.work==="contract")&&a.insurance==="company"},
+{nm:"子ども医療費助成",mn:30000,mx:100000,al:"医療費の全額〜一部助成",df:"★☆☆",dl:"簡単",ds:"子どもの医療費自己負担分を自治体が助成。多くで中学生まで。",hw:"市区町村窓口で「医療証」を申請。保険証と住所確認書類。",url:"",fn:a=>["ch_pre","ch_elem","ch_high","sp"].includes(a.family)},
+{nm:"私立高校授業料実質無償化",mn:118800,mx:396000,al:"年11.8〜39.6万円",df:"★★☆",dl:"学校経由",ds:"年収約910万未満世帯の私立高校生に授業料支援金。",hw:"入学時に学校配布の申請書を提出。マイナンバー必要。",url:"https://www.mext.go.jp/a_menu/shotou/mushouka/",fn:a=>(a.family==="ch_high"||a.family==="sp")&&a.income!=="800p"},
+{nm:"住宅ローン控除",mn:150000,mx:350000,al:"年15〜35万円の税額控除",df:"★★☆",dl:"初年度は確定申告",ds:"ローン年末残高の0.7%が13年間所得税から直接控除。",hw:"初年度は確定申告。2年目以降は年末調整で自動適用。",url:"https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1211-1.htm",fn:a=>a.housing==="own_loan"},
+{nm:"失業給付",mn:0,mx:0,al:"前職賃金の45〜80%を最大330日",df:"★★☆",dl:"ハローワーク",ds:"離職した雇用保険加入者に再就職活動中の生活費として支給。",hw:"ハローワークに離職票・本人確認書類・写真を持参。",url:"https://www.hellowork.mhlw.go.jp/insurance/insurance_basicbenefit.html",fn:a=>a.events.includes("job_loss")&&a.work==="unemployed"},
+{nm:"住民税非課税世帯給付金",mn:30000,mx:100000,al:"世帯あたり3〜10万円",df:"★☆☆",dl:"届いた書類に記入",ds:"住民税非課税世帯に物価高対策として随時実施。",hw:"届く確認書に記入返送。届かない場合は窓口。",url:"",fn:a=>a.income==="0"||a.income==="u100"},
+{nm:"教育訓練給付金",mn:0,mx:0,al:"受講料の20〜70%(最大56万)",df:"★★☆",dl:"ハローワーク",ds:"厚労省指定講座の受講料を20〜70%支給。",hw:"ハローワークで受給資格確認後、対象講座を受講。",url:"https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/jinzaikaihatsu/kyouiku.html",fn:a=>(a.work==="fulltime"||a.work==="contract"||a.events.includes("job_ch"))&&a.age!=="10s"},
+{nm:"IT導入補助金",mn:50000,mx:4500000,al:"最大450万円(1/2〜3/4)",df:"★★★",dl:"書類多い",ds:"ITツール導入費用の1/2〜3/4を補助。",hw:"gBizID取得後、IT導入支援事業者と連携して電子申請。",url:"https://www.it-hojo.jp/",fn:a=>(a.work==="freelance"||a.work==="executive")&&a.interest.includes("biz_sub")},
+{nm:"持続化補助金",mn:50000,mx:2000000,al:"最大200万円(経費の2/3)",df:"★★★",dl:"商工会議所経由",ds:"販路開拓の経費を2/3補助。",hw:"商工会議所に相談→経営計画書を作成→電子申請。",url:"https://r3.jizokukahojokin.info/",fn:a=>(a.work==="freelance"||a.work==="executive")&&a.interest.includes("biz_sub")},
+{nm:"高額療養費制度",mn:0,mx:0,al:"限度額超の医療費を還付",df:"★★☆",dl:"健保に申請",ds:"1ヶ月の自己負担が限度額超で超過分払戻し。",hw:"加入健保に支給申請書を提出。限度額適用認定証の事前取得推奨。",url:"https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/juuyou/kougakuiryou/index.html",fn:a=>true},
+{nm:"付加年金",mn:0,mx:0,al:"月400円で年金増額(2年で元取れる)",df:"★☆☆",dl:"簡単",ds:"国民年金第1号が月400円上乗せで年金増額。実質ノーリスク。",hw:"市区町村の年金窓口で申出書を提出。",url:"https://www.nenkin.go.jp/service/kokunen/hokenryo/fukanofu.html",fn:a=>(a.work==="freelance"||a.work==="student"||a.work==="part")&&a.insurance==="national"}
+];
+let A={},ci=0,ms=[];
+function go(){hide("S0");ci=0;A={};document.getElementById("prog").classList.add("on");rq(0);}
+function hide(id){document.getElementById(id).classList.remove("on");}
+function show(id){document.getElementById(id).classList.add("on");}
+function rq(i){
+const q=Q[i],c=document.getElementById("QC"),o=c.querySelector(".scr.on");
+if(o){o.style.opacity="0";o.style.transform="translateY(-16px)";}
+setTimeout(()=>{c.innerHTML="";const d=document.createElement("div");d.className="scr";d.id="QS"+i;
+let h='<div class="qw"><div class="qn">QUESTION '+q.n+' / 10</div><div class="qt">'+q.t.replace(/\n/g,"<br>")+'</div>';
+if(q.s)h+='<div class="qs">'+q.s+'</div>';if(q.m)h+='<div class="qh">'+q.h+'</div>';
+if(q.type==="region"){h+='<div class="opts rg">';Object.keys(RG).forEach(k=>{h+='<button class="ob" onclick="sr(\''+k+'\')">'+RG[k].n+'</button>';});h+='</div>';}
+else{h+='<div class="opts">';q.o.forEach(o=>{h+='<button class="ob" data-v="'+o.v+'" onclick="'+(q.m?'tm(this,\''+q.id+'\')':'sa(\''+q.id+'\',\''+o.v+'\')')+'">'+o.l+'</button>';});h+='</div>';
+if(q.m)h+='<button class="bcf" id="bcf" onclick="cm(\''+q.id+'\')">この内容で次へ進む</button>';}
+h+='</div>';d.innerHTML=h;c.appendChild(d);requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add("on")));up(i);ms=[];},o?250:0);}
+function sr(k){const c=document.getElementById("QC"),s=c.querySelector(".scr.on");
+let h='<div class="qw"><div class="qn">QUESTION 4 / 10</div><div class="qt">都道府県を選んでください</div><div class="qs">'+RG[k].n+'</div><div class="opts pg">';
+RG[k].p.forEach(p=>{h+='<button class="ob" onclick="sa(\'pref\',\''+p+'\')">'+p+'</button>';});
+h+='</div><button class="bbk" onclick="rq('+ci+')">← 地方選択に戻る</button></div>';s.innerHTML=h;}
+function sa(id,v){A[id]=v;event.target.parentElement.querySelectorAll(".ob").forEach(x=>x.classList.remove("sel"));event.target.classList.add("sel");setTimeout(()=>{ci++;ci<Q.length?rq(ci):ld();},320);}
+function tm(b,qid){const v=b.dataset.v;if(v==="ev_none"||v==="u_none"){ms=[v];b.parentElement.querySelectorAll(".ob").forEach(x=>{x.classList.remove("sel");if(x.dataset.v===v)x.classList.add("sel");});}
+else{ms=ms.filter(x=>x!=="ev_none"&&x!=="u_none");b.parentElement.querySelectorAll(".ob").forEach(x=>{if(x.dataset.v==="ev_none"||x.dataset.v==="u_none")x.classList.remove("sel");});
+if(ms.includes(v)){ms=ms.filter(x=>x!==v);b.classList.remove("sel");}else{ms.push(v);b.classList.add("sel");}}
+const cf=document.getElementById("bcf");if(cf){ms.length>0?cf.classList.add("ok"):cf.classList.remove("ok");}}
+function cm(qid){if(!ms.length)return;A[qid]=[...ms];ci++;ci<Q.length?rq(ci):ld();}
+function up(i){document.getElementById("pF").style.width=((i+1)/Q.length*100)+"%";document.getElementById("pS").textContent=(i+1)+" / "+Q.length;}
+function ld(){document.getElementById("QC").innerHTML="";document.getElementById("pF").style.width="100%";show("SL");
+const m=["1万件超の制度DBから検索中...","条件にマッチする制度を抽出中...","推定取りこぼし額を計算中...","結果をまとめています..."];let i=0;const e=document.getElementById("lM");
+const t=setInterval(()=>{i++;if(i<m.length)e.textContent=m[i];},900);
+setTimeout(()=>{clearInterval(t);hide("SL");document.getElementById("prog").classList.remove("on");res();},3800);}
+function res(){
+const a={work:A.work||"",age:A.age||"",income:A.income||"",pref:A.pref||"",family:A.family||"",housing:A.housing||"",events:Array.isArray(A.events)?A.events:[],insurance:A.insurance||"",using:Array.isArray(A.using)?A.using:[],interest:Array.isArray(A.interest)?A.interest:[]};
+const mt=DB.filter(s=>{try{return s.fn(a)}catch(e){return false}});
+let tmn=0,tmx=0;mt.forEach(s=>{tmn+=s.mn;tmx+=s.mx;});mt.sort((a,b)=>b.mx-a.mx);
+const top=mt.slice(0,8),p1=top.slice(0,3),p2=top.slice(3,6),p3=top.slice(6,8);
+const fy=n=>n===0?"—":"¥"+n.toLocaleString();
+let h='<div class="rh"><div class="rl">DIAGNOSIS RESULT</div><h2>あなたは今、<br>これだけのお金を<br>取りこぼしています。</h2>';
+h+='<div class="ac"><div class="al">推定 年間取りこぼし額</div>';
+if(tmx>0){h+=tmn!==tmx?'<div class="av">'+fy(tmn)+'<small> 〜 </small>'+fy(tmx)+'</div>':'<div class="av">'+fy(tmx)+'</div>';}else{h+='<div class="av">要確認</div>';}
+h+='<div class="av"><small>/ 年</small></div><div class="an">該当制度: '+mt.length+'件</div></div></div>';
+h+='<div class="rw">※本診断は推定値です。実際の受給可否は各窓口でご確認ください。</div>';
+function sec(t,b,l){if(!l.length)return"";let s='<div class="ss"><div class="sst"><span class="bd">'+b+'</span><span>'+t+'</span></div>';
+l.forEach(i=>{s+='<div class="sc"><div class="cn">'+i.nm+'</div><div class="cm"><span class="ct mn">'+i.al+'</span><span class="ct df">'+i.df+' '+i.dl+'</span></div><div class="cd">'+i.ds+'</div><div class="ch"><b>申請方法</b>'+i.hw+'</div>';
+if(i.url)s+='<a class="cl" href="'+i.url+'" target="_blank" rel="noopener">公式サイトで詳細を見る →</a>';s+='</div>';});return s+'</div>';}
+h+=sec("最優先で検討すべき制度","🥇",p1);h+=sec("次に検討すべき制度","🥈",p2);h+=sec("余裕があれば活用したい制度","🥉",p3);
+if(!mt.length)h+='<div class="ss"><div class="sc"><div class="cd">該当制度が見つかりませんでした。条件が変わった際に再度お試しください。</div></div></div>';
+const st=encodeURIComponent("トリモドで診断したら年間"+(tmx>0?Math.round(tmx/10000)+"万円":"◯万円")+"も取りこぼしてた...\n\n無料3分診断👇\nhttps://harutouenishi-rgb.github.io/torimodo/shindan.html");
+h+='<div class="cw"><a class="bl" href="https://lin.ee/Y76Guyt" target="_blank" rel="noopener">LINEで申請サポートを相談する</a>';
+h+='<a class="bx" href="https://twitter.com/intent/tweet?text='+st+'" target="_blank" rel="noopener">この結果をXでシェアする</a>';
+h+='<button class="bs" onclick="location.reload()">もう一度診断する</button>';
+h+='<a class="bs" href="https://harutouenishi-rgb.github.io/torimodo/" target="_blank" rel="noopener">トリモドについて詳しく見る</a></div>';
+h+='<div class="rf"><div class="fl">トリ<i>モド</i></div><p>Recover what\'s yours</p></div>';
+document.getElementById("RC").innerHTML=h;show("SR");window.scrollTo({top:0,behavior:"smooth"});}
+</script>
+</body>
+</html>
